@@ -5,8 +5,7 @@ from config import config
 
 
 bootstrap = Bootstrap()
-
-db = SQLAlchemy
+db = SQLAlchemy()
 
 
 def create_app(config_name):
@@ -18,5 +17,8 @@ def create_app(config_name):
 
     from .projects import projects as projects_blueprint
     app.register_blueprint(projects_blueprint)
+
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     return app
