@@ -19,7 +19,7 @@ class ProfileForm(Form):
 class ProjectForm(Form):
     title = StringField('Title', validators=[Required(), Length(1, 128)])
     description = TextAreaField('Desciption')
-    date = DateField('Date', format='%d/%m/%Y', placeholder='dd/mm/yyyy')
+    date = DateField('Date', format='%d/%m/%Y')
     submit = SubmitField('Submit')
 
     def from_model(self, project):
