@@ -4,7 +4,7 @@
 <div class="page-header user-profile">
     <div class="user-avatar"><img src="{{ user.gravatar(128) }}"></div>
     {% if current_user == user %}
-        <a class="btn btn-default pull-right" href="{{ url_for('talks.profile') }}">Edit Profile</a>
+        <a class="btn btn-default pull-right" href="{{ url_for('projects.profile') }}">Edit Profile</a>
     {% endif %}
     <h1>{{ user.username }}</h1>
     <p>

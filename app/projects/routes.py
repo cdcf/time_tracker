@@ -1,9 +1,9 @@
 from flask import render_template, flash, redirect, url_for
 from flask.ext.login import login_required, current_user
 from .. import db
-from ..models import User
+from ..models import User, Project
 from . import projects
-from .forms import ProfileForm
+from .forms import ProfileForm, ProjectForm
 
 
 @projects.route('/')
@@ -33,3 +33,19 @@ def profile():
     form.location.data = current_user.location
     form.bio.data = current_user.bio
     return render_template('projects/profile.html/', form=form)
+
+
+@projects.route('/new/', methods=['GET', 'POST'])
+@login_required
+def new_project():
+    form = ProjectForm()
+    if form.validate_on_submit():
+        project = Project(title=form.title.data,
+                          description=form.description.data,
+                          date=form.date.data,
+                          author=current_user)
+        db.session.add(project)
+        db.session.commit()
+        flash('The project was added successfully.')
+        return redirect(url_for('projects.index'))
+    return render_template('projects/edit_project.html/', form=form)
