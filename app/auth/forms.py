@@ -7,6 +7,8 @@ from wtforms import ValidationError
 from ..models import User
 
 
+# We allow here a user to be created within the app, however this user will NOT be an admin user.
+# Users have to insert both an e-mail address which can be only unique and a username that we also want to be unique.
 class RegistrationForm(Form):
     email = StringField('Email', validators=[Required(), Length(1, 64), Email()])
     username = StringField('Username', validators=[Required(), Length(1, 64),
@@ -26,6 +28,7 @@ class RegistrationForm(Form):
             raise ValidationError('Username already registered.')
 
 
+# We allow here an registered user to login into the app
 class LoginForm(Form):
     email = StringField('Email', validators=[Required(), Length(1, 64), Email()])
     password = PasswordField('Password', validators=[Required()])

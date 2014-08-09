@@ -8,6 +8,7 @@ from app import db
 from .forms import LoginForm, RegistrationForm
 
 
+# We enable here new users to be registered in the app
 @auth.route('/register/', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -22,6 +23,9 @@ def register():
     return render_template('auth/register.html/', form=form)
 
 
+# We first check that if we are in Production system, users have to be authenticated first.
+# In any case, we define here the login page, and we check that both email and passwords are valid. We choose to
+# work with passwords as they are unique values for a user.
 @auth.route('/login/', methods=['GET', 'POST'])
 def login():
     if not current_app.config['DEBUG'] and not current_app.config['TESTING'] and not request.is_secure:
@@ -37,6 +41,7 @@ def login():
     return render_template('auth/login.html/', form=form)
 
 
+# We define here the logout process
 @auth.route('/logout/')
 @login_required
 def logout():

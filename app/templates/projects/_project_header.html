@@ -1,0 +1,7 @@
+<div class="project-header">
+    <h2>{{ project.title }}</h2>
+    <h3>{{ project.description }}</h3>
+    <p>
+        Created by <a href="{{ url_for('projects.user', username=project.author.username) }}">{{ project.author.username }}</a>
+    </p>
+</div>

@@ -10,9 +10,10 @@ app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 
 
+# This command line function allows to create an Admin user only. As an admin user has extensive rights, we do not
+# want any user to be or become admin from the app and thus, keep it separate.
 @manager.command
 def adduser(email, username, admin=True):
-    """Register an admin user only from command line"""
     from getpass import getpass
     password = getpass()
     password2 = getpass(prompt='Confirm: ')

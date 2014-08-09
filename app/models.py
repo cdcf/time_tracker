@@ -8,6 +8,9 @@ from flask.ext.login import UserMixin
 from . import db, login_manager
 
 
+# We define here user table with all required fields,
+# we also retrieve user's avatar from Gravatar if any,
+# We make sure that user's password is encrypted
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -52,6 +55,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+# We define here the structure of the project table and link it to a user via a foreign key
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)

@@ -6,17 +6,24 @@ from . import projects
 from .forms import ProfileForm, ProjectForm
 
 
+# When accessing the app, we want to see the list of existing projects
 @projects.route('/')
 def index():
-    return render_template('projects/index.html/')
+    project_list = Project.query.order_by(Project.date.desc()).all()
+    return render_template('projects/index.html/', projects=project_list)
 
 
+# last part first_or_404 will return a 404 status code if user tries to manually overwrite the user
+# name in the url and that this user does not exist in the db
+# We then display the list of projects created by that user.
 @projects.route('/user/<username>')
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('projects/user.html/', user=user)
+    project_list = user.projects.order_by(Project.date.desc()).all()
+    return render_template('projects/user.html/', user=user, projects=project_list)
 
 
+# We enable here a user to complete his user profile once he has logged in
 @projects.route('/profile/', methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -35,6 +42,7 @@ def profile():
     return render_template('projects/profile.html/', form=form)
 
 
+# We allow here a user to create a new project once he has logged in
 @projects.route('/new/', methods=['GET', 'POST'])
 @login_required
 def new_project():
