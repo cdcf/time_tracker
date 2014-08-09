@@ -57,3 +57,9 @@ def new_project():
         flash('The project was added successfully.')
         return redirect(url_for('projects.index'))
     return render_template('projects/edit_project.html/', form=form)
+
+
+@projects.route('/project/<int:id>/')
+def project(id):
+    project = Project.query.get_or_404(id)
+    return render_template('projects/project.html/', project=project)
