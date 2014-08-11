@@ -6,8 +6,14 @@ from . import projects
 from .forms import ProfileForm, ProjectForm
 
 
-# When accessing the app, we want to see the list of existing projects
+# When accessing the app, if user is not authenticated, we want to display a welcome screen only without any view
+# on existing projects
 @projects.route('/')
+def welcome():
+    return render_template('projects/welcome.html/')
+
+# When accessing the app, if user IS authenticated, we want to see the list of existing projects
+@projects.route('/index/')
 def index():
     project_list = Project.query.order_by(Project.date.desc()).all()
     return render_template('projects/index.html/', projects=project_list)
