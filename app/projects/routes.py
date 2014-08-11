@@ -25,8 +25,7 @@ def index():
 @projects.route('/user/<username>')
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    project_list = user.projects.order_by(Project.date.desc()).all()
-    return render_template('projects/user.html/', user=user, projects=project_list)
+    return render_template('projects/user.html/', user=user)
 
 
 # We enable here a user to complete his user profile once he has logged in
