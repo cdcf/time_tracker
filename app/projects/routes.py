@@ -34,7 +34,7 @@ def profile():
         current_user.bio = form.bio.data
         db.session.add(current_user._get_current_object())
         db.session.commit()
-        flash('Your profile has been updated.')
+        flash('Your profile has been updated.', 'success')
         return redirect(url_for('projects.user', username=current_user.username))
     form.name.data = current_user.name
     form.location.data = current_user.location
@@ -52,7 +52,7 @@ def new_project():
         form.to_model(project)
         db.session.add(project)
         db.session.commit()
-        flash('The project was added successfully.')
+        flash('The project was added successfully.', 'success')
         return redirect(url_for('projects.index'))
     return render_template('projects/edit_project.html/', form=form)
 
@@ -79,7 +79,7 @@ def edit_project(id):
         form.to_model(project)
         db.session.add(project)
         db.session.commit()
-        flash('The project was updated successfully.')
+        flash('The project was updated successfully.', 'success')
         return redirect(url_for('projects.project', id=project.id))
     form.from_model(project)
     return render_template('projects/edit_project.html', form=form)
