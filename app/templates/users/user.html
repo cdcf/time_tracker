@@ -3,9 +3,6 @@
 {% block page_content %}
 <div class="page-header user-profile">
     <div class="user-avatar"><img src="{{ user.gravatar(128) }}"></div>
-    {% if current_user == user %}
-        <a class="btn btn-default pull-right" href="{{ url_for('users.profile') }}">Edit Profile</a>
-    {% endif %}
     <h1>{{ user.username }}</h1>
     <p>
         {% if user.name %}
@@ -17,6 +14,10 @@
     </p>
     {% if user.bio %}
         <p>{{ user.bio }}</p>
+    {% endif %}
+    <p>Member since {{ moment(user.member_since).format('L') }}. Last seen {{ moment(user.last_seen).fromNow() }}.</p>
+    {% if current_user == user %}
+        <a class="btn btn-default" href="{{ url_for('users.profile') }}">Edit Profile</a>
     {% endif %}
 </div>
 {% endblock %}

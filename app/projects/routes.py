@@ -1,6 +1,6 @@
 __author__ = 'Cedric Da Costa Faro'
 
-from flask import render_template, flash, redirect, url_for, abort
+from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from .. import db
 from ..models import Project
@@ -19,16 +19,22 @@ def new_project():
         db.session.add(project)
         db.session.commit()
         flash('The project was added successfully.', 'success')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('projects.list'))
     return render_template('projects/edit_project.html/', form=form)
 
 
 # We list here all projects
-@projects.route('/list/')
+@projects.route('/list/', methods=['GET', 'POST'])
 @login_required
 def list():
-    project_list = Project.query.order_by(Project.date.desc()).all()
-    return render_template('projects/list.html/', projects=project_list)
+    page = request.args.get('page', 1, type=int)
+    pagination = Project.query.order_by(Project.date.desc()).paginate(page,
+                                                                      per_page=current_app.config['PROJECT_PER_PAGE'],
+                                                                      error_out=False)
+    project_list = pagination.items
+    return render_template('projects/list.html/', projects=project_list, pagination=pagination)
+
+
 
 
 # this function is used as basis to generate a project
@@ -54,6 +60,6 @@ def edit_project(id):
         db.session.add(project)
         db.session.commit()
         flash('The project was updated successfully.', 'success')
-        return redirect(url_for('projects.project', id=project.id))
+        return redirect(url_for('projects.list'))
     form.from_model(project)
     return render_template('projects/edit_project.html', form=form)

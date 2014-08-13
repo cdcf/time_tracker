@@ -5,7 +5,7 @@ from flask.ext.login import login_required, current_user
 from .. import db
 from ..models import User
 from . import users
-from .forms import ProfileForm
+from .forms import ProfileForm, ChangePasswordForm
 
 
 # last part first_or_404 will return a 404 status code if user tries to manually overwrite the user
@@ -34,3 +34,20 @@ def profile():
     form.location.data = current_user.location
     form.bio.data = current_user.bio
     return render_template('users/profile.html/', form=form)
+
+
+# We enable users to update their password
+@users.route('/change-password/', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if current_user.verify_password(form.old_password.data):
+            current_user.password = form.password.data
+            db.session.add(current_user)
+            db.session.commit()
+            flash('Your password has been updated', 'success')
+            return redirect(url_for('main.index'))
+        else:
+            flash('Invalid password', 'danger')
+    return render_template('users/change_password.html/', form=form)

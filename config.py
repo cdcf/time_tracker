@@ -6,6 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    PROJECT_PER_PAGE = 5
 
 
 class DevelopmentConfig(Config):
