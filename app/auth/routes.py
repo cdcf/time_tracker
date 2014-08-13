@@ -37,7 +37,7 @@ def login():
             flash('Invalid email or password.', 'error')
             return redirect(url_for('auth.login'))
         login_user(user, form.remember_me.data)
-        return redirect(request.args.get('next') or url_for('projects.index'))
+        return redirect(request.args.get('next') or url_for('main.index'))
     return render_template('auth/login.html/', form=form)
 
 
@@ -47,4 +47,4 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('projects.welcome'))
+    return redirect(url_for('main.index'))

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    {% if current_user.is_authenticated %}
+        {% include "projects/_projects.html" %}
+    {% endif %}
+
+    <h1 class="text-center">Welcome to Time Tracker!</h1>
+    <h4 class="text-center">A web application developed and published by</h4>
+    <img class="center-block" src="static/image/sysgrove.jpg" alt="SysGrove" />
+{% endblock %}

@@ -7,6 +7,6 @@
     <h2><a href="{{ url_for('projects.project', id=project.id) }}">{{ project.title }}</a></h2>
     <h3>{{ project.description }}</h3>
     <p>
-        Created by <a href="{{ url_for('projects.user', username=project.author.username) }}">{{ project.author.username }}</a>
+        Created by <a href="{{ url_for('users.user', username=project.author.username) }}">{{ project.author.username }}</a>
     </p>
 </div>
