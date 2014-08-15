@@ -50,4 +50,4 @@ def change_password():
             return redirect(url_for('main.index'))
         else:
             flash('Invalid password', 'danger')
-    return render_template('users/change_password.html/', form=form)
+    return render_template('users/profile.html/', form=form)
