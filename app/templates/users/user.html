@@ -15,7 +15,6 @@
     {% if user.bio %}
         <p>{{ user.bio }}</p>
     {% endif %}
-    <p>Member since {{ moment(user.member_since).format('L') }}. Last seen {{ moment(user.last_seen).fromNow() }}.</p>
     {% if current_user == user %}
         <a class="btn btn-default" href="{{ url_for('users.profile') }}">Edit Profile</a>
     {% endif %}
