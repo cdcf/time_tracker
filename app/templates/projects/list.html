@@ -1,19 +1,12 @@
 {% extends "base.html" %}
+{% import "projects/_macros.html" as macros %}
+
+{% block title %}Time Tracker - Project list{% endblock %}
 
 {% block page_content %}
     {% include "projects/_projects.html" %}
-    {% if projects %}
-        <ul class="pager">
-    {% if pagination.has_prev %}
-        <li class="previous"><a href="{{ url_for('projects.list', page=pagination.prev_num) }}">&larr; Newer</a></li>
-    {% else %}
-        <li class="previous disabled"><a href="#">&larr; Newer</a></li>
-    {% endif %}
-    {% if pagination.has_next %}
-        <li class="next"><a href="{{ url_for('projects.list', page=pagination.next_num) }}">Older &rarr;</a></li>
-    {% else %}
-        <li class="next disabled"><a href="#">Older &rarr;</a></li>
-    {% endif %}
-</ul>
-{% endif %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, '.list') }}
+    </div>
+   
 {% endblock %}

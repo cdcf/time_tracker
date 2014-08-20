@@ -1,15 +1,7 @@
 <ul class="project-list">
-    {% if pagination %}
-        {% set base_index = (pagination.page - 1) * pagination.per_page %}
-    {% else %}
-        {% set base_index = 0 %}
-    {% endif %}
     {% for project in projects %}
-        {% set index = loop.index + base_index %}
-        <ul class="page-header">
-            <p class="project">
+            <li class="project">
             {% include "projects/_project_header.html" %}
-            </p>
-        </ul>
+            </li>
     {% endfor %}
 </ul>
