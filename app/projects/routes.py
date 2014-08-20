@@ -63,3 +63,13 @@ def edit_project(id):
         return redirect(url_for('projects.list'))
     form.from_model(project)
     return render_template('projects/edit_project.html', form=form)
+
+
+@projects.route('/delete/<int:id>/', methods=['POST'])
+@login_required
+def delete_project(id):
+    project = Project.query.get_or_404(id)
+    db.session.delete(project)
+    db.session.commit()
+    flash('Project was deleted successfully.', 'success')
+    return redirect(url_for('projects.list'))
