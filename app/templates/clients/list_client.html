@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% import "clients/_macros.html" as macros %}
+
+{% block title %}Time Tracker - Client list{% endblock %}
+
+{% block page_content %}
+    {% include "clients/_clients.html" %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, '.list_client') }}
+    </div>
+   
+{% endblock %}

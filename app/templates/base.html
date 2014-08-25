@@ -24,6 +24,12 @@
                             <li><a href="{{ url_for('projects.new_project') }}">Create New Project</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('clients.list_client') }}">Client List</a></li>
+                            <li><a href="{{ url_for('clients.client_new') }}">Create New Client</a></li>
+                        </ul>
+                    </li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">

@@ -43,7 +43,12 @@ For Windows users working on the standard command prompt:
     Confirm: <pick-a-password>
     User <your-username> was registered successfully.
 
-**Step 4**: Start the application:
+**Step 4**: Run the initial database migration:
+
+    (venv) $ python manage.py db migrate -m "initial migration"
+    (venv) $ python manage.py db upgrade
+     
+**Step 5**: Start the application:
 
     (venv) $ python manage.py runserver
      * Running on http://127.0.0.1:5000/

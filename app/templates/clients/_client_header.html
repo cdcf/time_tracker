@@ -1,0 +1,19 @@
+<div class="client-header">
+    {% if client.author == current_user %}
+    <a class="btn btn-primary pull-right" href="{{ url_for('clients.edit_client', id=client.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+    {% elif current_user.is_admin %}
+    <div class="btn pull-right">
+    <a class="btn btn-info" href="{{ url_for('clients.edit_client', id=client.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <form method="post" action="{{ url_for('clients.delete_client', id=client.id) }}"><button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></button></form>
+    </div>
+    {% endif %}
+    <h2><a href="{{ url_for('clients.client', id=client.id) }}">{{ client.name }}</a></h2>
+    <h3>
+        {% if client.location %}
+            <a href="http://maps.google.com?q={{ client.location }}">{{ client.location}}</a>
+        {% endif %}
+    </h3>
+    <p>
+        Created by <a href="{{ url_for('users.user', username=client.author.username) }}">{{ client.author.username }}</a>
+    </p>
+</div>

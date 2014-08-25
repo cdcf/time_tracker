@@ -19,10 +19,11 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean)
     password_hash = db.Column(db.String(128))
     name = db.Column(db.String(64))
-    location = db.Column(db.String(64))
+    location = db.Column(db.String(128))
     bio = db.Column(db.Text())
     avatar_hash = db.Column(db.String(32))
     projects = db.relationship('Project', lazy='dynamic', backref='author')
+    client = db.relationship('Client', lazy='dynamic', backref='author')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -61,4 +62,15 @@ class Project(db.Model):
     title = db.Column(db.String(128), nullable=False)
     description = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     date = db.Column(db.DateTime())
+
+
+# We define here the structure of the client table who will be re-used when creating projects.
+class Client(db.Model):
+    __tablename__ = 'clients'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), nullable=False)
+    location = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    projects = db.relationship('Project', lazy='dynamic')
