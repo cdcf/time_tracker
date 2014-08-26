@@ -28,7 +28,7 @@ def new_project():
 @login_required
 def list():
     page = request.args.get('page', 1, type=int)
-    pagination = Project.query.order_by(Project.date.desc()).paginate(page,
+    pagination = Project.query.order_by(Project.title.asc()).paginate(page,
                                                                       per_page=current_app.config['PROJECT_PER_PAGE'],
                                                                       error_out=False)
     project_list = pagination.items

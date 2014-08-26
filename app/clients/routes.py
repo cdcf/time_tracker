@@ -28,7 +28,7 @@ def client_new():
 @login_required
 def list_client():
     page = request.args.get('page', 1, type=int)
-    pagination = Client.query.order_by(Client.name.desc()).paginate(page,
+    pagination = Client.query.order_by(Client.name.asc()).paginate(page,
                                                                       per_page=current_app.config['CLIENT_PER_PAGE'],
                                                                       error_out=False)
     list_client = pagination.items
