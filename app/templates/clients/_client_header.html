@@ -1,5 +1,10 @@
 <div class="client-header">
-    {% if client.author == current_user %}
+    {% if current_user.is_admin and client.author == current_user %}
+    <div class="btn pull-right">
+    <a class="btn btn-primary" href="{{ url_for('clients.edit_client', id=client.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <form method="post" action="{{ url_for('clients.delete_client', id=client.id) }}"><button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></button></form>
+    </div>
+    {% elif client.author == current_user %}
     <a class="btn btn-primary pull-right" href="{{ url_for('clients.edit_client', id=client.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
     {% elif current_user.is_admin %}
     <div class="btn pull-right">

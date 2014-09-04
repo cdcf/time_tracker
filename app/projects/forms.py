@@ -2,17 +2,23 @@ __author__ = 'Cedric Da Costa Faro'
 
 from flask.ext.wtf import Form
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import Length, Required
 from wtforms.fields.html5 import DateField
 
 
 # We define here the structure of a project, typically, the project name, a brief description and a date when it starts
 # and we allow that it is updated if required
+# We define here the structure of a client, typically, the client name and a location
+def get_clients():
+    from ..models import Client
+    return Client.query
+    
 class ProjectForm(Form):
     title = StringField('Title', validators=[Required(), Length(1, 128)])
     description = TextAreaField('Desciption')
     date = DateField('Date', format='%d/%m/%Y')
-    client_id = SelectField('Select Client', validators=[Required()], coerce=int, choices = [(1, 'abc'), (2, 'defg'), (3, 'hij')])
+    client_id = QuerySelectField('Select Client', query_factory=get_clients, allow_blank=True, get_label='name')
     submit = SubmitField('Submit')
 
     def from_model(self, project):

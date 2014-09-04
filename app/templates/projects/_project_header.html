@@ -1,5 +1,10 @@
 <div class="project-header">
-    {% if project.author == current_user %}
+    {% if current_user.is_admin AND project.author == current_user %}
+    <div class="btn pull-right">
+    <a class="btn btn-primary" href="{{ url_for('projects.edit_project', id=project.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <form method="post" action="{{ url_for('projects.delete_project', id=project.id) }}"><button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></button></form>
+    </div>
+    {% elif project.author == current_user %}
     <a class="btn btn-primary pull-right" href="{{ url_for('projects.edit_project', id=project.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
     {% elif current_user.is_admin %}
     <div class="btn pull-right">

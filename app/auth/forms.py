@@ -1,7 +1,7 @@
 __author__ = 'Cedric Da Costa Faro'
 
 from flask.ext.wtf import Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, validators
 from wtforms.validators import Required, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 from ..models import User
@@ -15,7 +15,8 @@ class RegistrationForm(Form):
                                                    Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                                           'Username must have only letters, '
                                                    'numbers, dots or underscores')])
-    password = PasswordField('Password', validators=[Required(), EqualTo('password2', message='Passwords must match')])
+    password = PasswordField('Password', validators=[Required(), validators.Length(min=6, message=
+        ('Please choose a password with at least 6 characters')), EqualTo('password2', message='Passwords must match')])
     password2 = PasswordField('Confirm password', validators=[Required()])
     submit = SubmitField('Register')
 
