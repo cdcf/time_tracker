@@ -12,7 +12,7 @@ from wtforms.fields.html5 import DateField
 # We define here the structure of a client, typically, the client name and a location
 def get_clients():
     from ..models import Client
-    return Client.query
+    return Client.query.all()
     
 class ProjectForm(Form):
     title = StringField('Title', validators=[Required(), Length(1, 128)])
@@ -24,11 +24,11 @@ class ProjectForm(Form):
     def from_model(self, project):
         self.title.data = project.title
         self.description.data = project.description
-        self.client_id.data = project.client_id
+        self.client_id.data = str(project.client_id)
         self.date.data = project.date
 
     def to_model(self, project):
         project.title = self.title.data
         project.description = self.description.data
-        project.client_id = self.client_id.data
+        project.client_id = str(self.client_id.data)
         project.date = self.date.data
