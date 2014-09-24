@@ -73,4 +73,4 @@ class Client(db.Model):
     name = db.Column(db.String(128), nullable=False)
     location = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    projects = db.relationship('Project', lazy='dynamic', backref='projects')
+    projects = db.relationship('Project', lazy='dynamic', backref='client_project')

@@ -3,7 +3,7 @@ __author__ = 'Cedric Da Costa Faro'
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from .. import db
-from ..models import Project
+from ..models import Project, Client
 from . import projects
 from .forms import ProjectForm
 
