@@ -1,0 +1,3 @@
+The .gitignore in this directory is used to serve 2 purposes
+1) Allow the creation of the versions folder, which is needed to stop the "initial migration" command failing.
+2) Stop any files being committed to the repository from this folder
