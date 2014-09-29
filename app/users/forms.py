@@ -8,7 +8,7 @@ from wtforms.validators import Optional, Length, Required, EqualTo
 # We define here the profile data of a user
 class ProfileForm(Form):
     name = StringField('Name', validators=[Optional(), Length(1, 64)])
-    location = StringField('Location', validators=[Optional(), Length(1, 64)])
+    location = TextAreaField('Location', validators=[Optional()])
     bio = TextAreaField('Bio')
     submit = SubmitField('Submit')
 

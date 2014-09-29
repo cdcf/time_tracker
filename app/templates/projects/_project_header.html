@@ -14,7 +14,7 @@
     {% endif %}
     <h2><a href="{{ url_for('projects.project', id=project.id) }}">{{ project.title }}</a></h2>
     <h3>{{ project.description }}</h3>
-    <h4>{{ project.client_id }}</h4>
+    <h4><a href="{{ url_for('clients.client', id=project.client_project.id) }}">{{ project.client_project.name }}</a></h4>
     <p>
         Created by <a href="{{ url_for('users.user', username=project.author.username) }}">{{ project.author.username }}</a>
     </p>
