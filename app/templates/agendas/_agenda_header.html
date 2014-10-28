@@ -1,0 +1,20 @@
+<div class="agenda-header">
+    {% if current_user.is_admin and agenda.author == current_user %}
+    <div class="btn pull-right">
+    <a class="btn btn-primary" href="{{ url_for('agendas.edit_agenda', id=agenda.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <form method="post" action="{{ url_for('agendas.delete_agenda', id=agenda.id) }}"><button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></button></form>
+    </div>
+    {% elif agenda.author == current_user %}
+    <a class="btn btn-primary pull-right" href="{{ url_for('agendas.edit_agenda', id=agenda.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+    {% elif current_user.is_admin %}
+    <div class="btn pull-right">
+    <a class="btn btn-info" href="{{ url_for('agendas.edit_agenda', id=agenda.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <form method="post" action="{{ url_for('agendas.delete_agenda', id=agenda.id) }}"><button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></button></form>
+    </div>
+    {% endif %}
+    <h2><a href="{{ url_for('agendas.agenda', id=agenda.id) }}">{{ agenda.agenda_date }}</a></h2>
+    <h4><a href="{{ url_for('projects.project', id=agenda.project_agenda.id) }}">{{ agenda.project_agenda.name }}</a></h4>
+    <p>
+        Created by <a href="{{ url_for('users.user', username=agenda.author.username) }}">{{ agenda.author.username }}</a>
+    </p>
+</div>

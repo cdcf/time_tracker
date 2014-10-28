@@ -1,6 +1,6 @@
 __author__ = 'Cedric Da Costa Faro'
 
-from datetime import datetime
+from datetime import datetime, date
 import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import request
@@ -24,6 +24,7 @@ class User(UserMixin, db.Model):
     avatar_hash = db.Column(db.String(32))
     projects = db.relationship('Project', lazy='dynamic', backref='author')
     client = db.relationship('Client', lazy='dynamic', backref='author')
+    agenda = db.relationship('Agenda', lazy='dynamic', backref='author')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -64,9 +65,10 @@ class Project(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     date = db.Column(db.DateTime())
+    agenda_id = db.relationship('Agenda', lazy='dynamic', backref='project_agenda')
 
 
-# We define here the structure of the client table who will be re-used when creating projects.
+# We define here the structure of the client table which will be re-used when creating projects.
 class Client(db.Model):
     __tablename__ = 'clients'
     id = db.Column(db.Integer, primary_key=True)
@@ -74,3 +76,13 @@ class Client(db.Model):
     location = db.Column(db.Text(), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     projects = db.relationship('Project', lazy='dynamic', backref='client_project')
+
+
+# We define here the structure of the agenda table which will be used to record an activity
+# belonging to a project
+class Agenda(db.Model):
+    __tablename__ = 'agendas'
+    id = db.Column(db.Integer, primary_key=True)
+    agenda_date = db.Column(db.Date(), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

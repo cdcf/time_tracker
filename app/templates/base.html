@@ -3,6 +3,7 @@
 {% block title %}Time Tracker{% endblock %}
 
 {% block navbar %}
+
 <div class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -18,18 +19,24 @@
             <ul class="nav navbar-nav">
                 {% if current_user.is_authenticated() %}
                     <li><a href="{{ url_for('users.user', username=current_user.username) }}">Profile</a></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('clients.list_client') }}">Client List</a></li>
+                            <li><a href="{{ url_for('clients.client_new') }}">Create New Client</a></li>
+                        </ul>
+                    </li>                    
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url_for('projects.list') }}">Project List</a></li>
                             <li><a href="{{ url_for('projects.new_project') }}">Create New Project</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <b class="caret"></b></a>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Agendas <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('clients.list_client') }}">Client List</a></li>
-                            <li><a href="{{ url_for('clients.client_new') }}">Create New Client</a></li>
+                            <li><a href="{{ url_for('agendas.agenda_list') }}">Agenda List</a></li>
+                            <li><a href="{{ url_for('agendas.new_agenda') }}">Create New Agenda</a></li>
                         </ul>
-                    </li>
+                    </li>                    
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">

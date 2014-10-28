@@ -38,4 +38,7 @@ def create_app(config_name):
     from .clients import clients as clients_blueprint
     app.register_blueprint(clients_blueprint)
 
+    from .agendas import agendas as agendas_blueprint
+    app.register_blueprint(agendas_blueprint)
+
     return app

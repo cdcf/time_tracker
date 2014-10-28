@@ -3,7 +3,7 @@ __author__ = 'Cedric Da Costa Faro'
 from flask import render_template, flash, redirect, url_for, abort, request, current_app
 from flask.ext.login import login_required, current_user
 from .. import db
-from ..models import Project, Client
+from ..models import Project
 from . import projects
 from .forms import ProjectForm
 
@@ -33,8 +33,6 @@ def list():
                                                                       error_out=False)
     project_list = pagination.items
     return render_template('projects/list.html/', projects=project_list, pagination=pagination)
-
-
 
 
 # this function is used as basis to generate a project
